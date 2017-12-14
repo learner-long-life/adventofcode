@@ -1,0 +1,37 @@
+pragma solidity ^0.4.19;
+
+contract InverseCapcha {
+    
+    uint public sum;
+    uint16 public nextIndex; // index of next character submitted
+    byte public input0;
+    byte public inputp; // previous input byte
+    
+    function InverseCapcha() public {
+        nextIndex = 0;
+    }
+    
+    function init(byte i0) public {
+        input0 = i0;
+        inputp = i0;
+        sum = 0;
+        nextIndex = 1;
+    }
+    
+    function addChar(byte ii, uint16 _nextIndex) public {
+        require(nextIndex == _nextIndex);
+        if (inputp == ii) {
+            sum += uint(inputp);
+        }
+        nextIndex += 1;
+        inputp = ii;
+    }
+    
+    function addLast(byte ix, uint16 _nextIndex) public {
+        require(nextIndex == _nextIndex);
+        if (input0 == ix) {
+            sum += uint(input0);
+        }
+        nextIndex += 1;
+    }
+}
